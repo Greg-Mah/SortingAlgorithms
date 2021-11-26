@@ -96,11 +96,11 @@ const cycleSortArraySkip=(arr)=>
     });
     for(let i=0;i<arr.length;i++)
     {
-        if(indexsVisited[pos])
+        if(indexsVisited[pos])//if visited already then move to next loop
         {
             continue;
         }
-        let pos=findPos(arr,i,i);
+        let pos=findPos(arr,i,i);//find position of this element
         while(pos!==i)
         {
             [arr[i],arr[pos]]=[arr[pos],arr[i]];//swap to final position
