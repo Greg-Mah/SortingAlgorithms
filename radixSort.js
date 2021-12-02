@@ -1,10 +1,10 @@
 const sortCheck=(array)=>
 {
-    if(array.length>=2)
+    if(array.length>=2)//arrays of length less then 2 are always sorted
     {
         for(let i=0;i<array.length-1;i++)
         {
-            if(array[i]>array[i+1])
+            if(array[i]>array[i+1])//each item is less then or equal to the item after it
             {
                 return false;
             }

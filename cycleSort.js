@@ -3,7 +3,7 @@ const findPos=(arr,index,sortedIndex)=>
     let output=sortedIndex;//offset by already sorted area
     for(let i=sortedIndex;i<arr.length;i++)
     {
-        if(arr[i]<arr[index])
+        if(arr[i]<arr[index])//check if lower value is in unsorted part
         {
             output++;
         }
@@ -73,14 +73,20 @@ const cycleSortNodeSkip=(arr)=>
     const indexsVisited=new minNodeChain();
     for(let i=0;i<arr.length;i++)
     {
+        if(indexsVisited.peek()===i)//if visited index move to next loop
+        {
+            indexsVisited.pop();
+            continue;
+        }
         let pos=findPos(arr,i,i);
-        while(pos!==i)
+        while(pos!==i)//keep swapping index until final position
         {
             [arr[i],arr[pos]]=[arr[pos],arr[i]];//swap to final position
             if(++numSorted>=arr.length)//check if done sorting
             {
                 return arr;
             }
+            indexsVisited.insert(i);//mark index as visited
             pos=findPos(arr,pos,i);//find the position of the swapped element
         }
     }
@@ -101,14 +107,14 @@ const cycleSortArraySkip=(arr)=>
             continue;
         }
         let pos=findPos(arr,i,i);//find position of this element
-        while(pos!==i)
+        while(pos!==i)//keep swapping index until matching position
         {
             [arr[i],arr[pos]]=[arr[pos],arr[i]];//swap to final position
-            if(++numSorted>=arr.length)//check if done sorting
+            if(++numSorted>=arr.length)//check if sorted all indexes
             {
                 return arr;
             }
-            indexsVisited[pos]=true;
+            indexsVisited[pos]=true;//mark index as visited
             pos=findPos(arr,pos,i);//find the position of the swapped element
         }
     }
