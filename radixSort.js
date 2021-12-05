@@ -20,8 +20,8 @@ const getBucket=(number,section,partition)=>
 
 const numberRadixSort=(unsorted,partition)=>
 {
-    let sorted=new Array(unsorted.length);
-    const buckets=Array.apply(null, Array(partition)).map(()=>
+    let sorted=new Array(unsorted.length);//make an array equal in length to other array
+    const buckets=Array.apply(null, Array(partition)).map(()=>//make a bucket for each partition
     {
         return 0;
     });
@@ -36,7 +36,7 @@ const numberRadixSort=(unsorted,partition)=>
         for(let i=0;i<buckets.length;i++)//empty each bucket to fill second array
         {
             let unsortedIndex=0;
-            while(buckets[i]>0&&unsortedIndex<unsorted.length)//empty a single
+            while(buckets[i]>0&&unsortedIndex<unsorted.length)//empty a single bucket
             {
                 if(getBucket(unsorted[unsortedIndex],section,partition)===i)
                 {
@@ -53,7 +53,6 @@ const numberRadixSort=(unsorted,partition)=>
 }
 
 let sortable=[134,654,123,6784,312,12,3564,12,45,1,321,587,3,35,23,54];
-
 console.log(numberRadixSort(sortable,10));
 
 let sortable2=[0,1,2,3,4,5,6,7,8,9,10];

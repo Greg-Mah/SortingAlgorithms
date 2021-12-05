@@ -1,7 +1,8 @@
-const findPos=(arr,index,sortedIndex)=>
+//assumes indexes before entered index are sorted
+const findPos=(arr,index)=>
 {
-    let output=sortedIndex;//offset by already sorted area
-    for(let i=sortedIndex;i<arr.length;i++)
+    let output=index;//offset by already sorted area
+    for(let i=index+1;i<arr.length;i++)//check every element after this one
     {
         if(arr[i]<arr[index])//check if lower value is in unsorted part
         {
@@ -11,7 +12,7 @@ const findPos=(arr,index,sortedIndex)=>
     return output;
 }
 
-class node
+/* class node
 {
     constructor(val)
     {
@@ -29,10 +30,6 @@ class minNodeChain
     constructor()
     {
         this.top=null;
-    }
-    constructor(topNode)
-    {
-        this.top=topNode;
     }
     insert(val)
     {
@@ -91,22 +88,22 @@ const cycleSortNodeSkip=(arr)=>
         }
     }
     return arr;
-}
+} */
 
 const cycleSortArraySkip=(arr)=>
 {
-    let numSorted=0;
-    const indexsVisited=Array.apply(null, Array(partition)).map(()=>
+    let numSorted=0;//keep track of the number of sorted elements
+    const indexsVisited=Array.apply(null, Array(arr.length)).map(()=>//keep track of the indexes visited
     {
         return false;
     });
     for(let i=0;i<arr.length;i++)
     {
-        if(indexsVisited[pos])//if visited already then move to next loop
+        if(indexsVisited[i])//if visited already then move to next loop
         {
             continue;
         }
-        let pos=findPos(arr,i,i);//find position of this element
+        let pos=findPos(arr,i);//find position of this element
         while(pos!==i)//keep swapping index until matching position
         {
             [arr[i],arr[pos]]=[arr[pos],arr[i]];//swap to final position
@@ -115,9 +112,11 @@ const cycleSortArraySkip=(arr)=>
                 return arr;
             }
             indexsVisited[pos]=true;//mark index as visited
-            pos=findPos(arr,pos,i);//find the position of the swapped element
+            pos=findPos(arr,i);//find the position of the swapped element
         }
     }
     return arr;
 }
 
+let sortable=[134,654,123,6784,312,12,3564,12,45,1,321,587,3,35,23,54];
+console.log(cycleSortArraySkip(sortable));
